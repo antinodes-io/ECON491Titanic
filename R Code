@@ -1,2 +1,20 @@
 Print("Hello World")
 Print("Deposit R Code Here!")
+
+###########
+
+library(glmnet)
+
+titanic <- read.csv("train-fixed.csv", stringsAsFactors = T)
+sample <- sample(1:nrow(titanic), nrow(titanic)* .5)
+
+titanic.train <- titanic[sample, ]
+titanic.test <- titanic[-sample, ]
+
+rownames(titanic) <- titanic[, 1]
+titanic <- titanic[, -1]
+
+
+glm1 <- glm(Survived~Sex + Age + Pclass + SibSp + Parch + Fare, titanic, family = "binomial")
+glm1
+
